@@ -1,0 +1,1 @@
+#Hive Practice Code Snippet
