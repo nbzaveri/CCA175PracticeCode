@@ -194,19 +194,70 @@ sqoop merge --merge-key department_id \
 ```
 
 ##Sqoop Export Commands
-sqoop export --connect jdbc:mysql://quickstart.cloudera:3306/retail_db --username retail_dba --password cloudera --table order_items_export --export-dir /user/cloudera/sqoop_import/order_items --batch --outdir java_files_again
+```
+sqoop export --connect jdbc:mysql://quickstart.cloudera:3306/retail_db \
+--username retail_dba --password cloudera \
+--table order_items_export \
+--export-dir /user/cloudera/sqoop_import/order_items \
+--batch --outdir java_files_again
+```
+```
+sqoop export --connect jdbc:mysql://localhost:3306/retail_db \
+--username retail_dba --password cloudera \
+-m 1 \
+--table departments \
+--export-dir /user/cloudera/sqoop_import/departments_export/ \
+--update-key department_id \
+--update-mode allowinsert
+```
+*By default export uses updateOnly mode and that's why below command will not insert anything, it will just update*
+```
+sqoop export --connect jdbc:mysql://localhost:3306/retail_db \
+--username retail_dba --password cloudera \
+-m 1 \
+--table departments \
+--export-dir /user/cloudera/sqoop_import/departments_export/ \
+--update-key department_id
+```
+*When there's no primary key in table we need to specify --update-key*
+```
+sqoop export --connect jdbc:mysql://localhost:3306/retail_db \
+--username retail_dba --password cloudera \
+-m 1 \
+--table departments_export \
+--export-dir /user/cloudera/sqoop_import/departments_export/ \
+--update-key department_id \
+--update-mode allowinsert
+```
 
-sqoop export --connect jdbc:mysql://localhost:3306/retail_db --username retail_dba --password cloudera -m 1 --table departments --export-dir /user/cloudera/sqoop_import/departments_export/ --update-key department_id --update-mode allowinsert
-
---des not insert
-sqoop export --connect jdbc:mysql://localhost:3306/retail_db --username retail_dba --password cloudera -m 1 --table departments --export-dir /user/cloudera/sqoop_import/departments_export/ --update-key department_id
-
---when there's no primary key in table
-sqoop export --connect jdbc:mysql://localhost:3306/retail_db --username retail_dba --password cloudera -m 1 --table departments_export --export-dir /user/cloudera/sqoop_import/departments_export/ --update-key department_id --update-mode allowinsert
-
-================File delimiter and file format==================
-sqoop import --connect jdbc:mysql://quickstart.cloudera:3306/retail_db --username retail_dba --password cloudera -m 1 --table departments --target-dir /user/cloudera/sqoop_import/departments_enclosedBy --enclosed-by \"
-
-sqoop import --connect jdbc:mysql://quickstart.cloudera:3306/retail_db --username retail_dba --password cloudera -m 1 --table departments --target-dir /user/cloudera/sqoop_import/departments_terminatedBy --enclosed-by \" --fields-terminated-by \| --lines-terminated-by \:
-
-sqoop import --connect jdbc:mysql://quickstart.cloudera:3306/retail_db --username retail_dba --password cloudera -m 1 --table departments_test --hive-import --hive-overwrite --hive-table sqoop_import.departments_test --create-hive-table --null-string nvl --null-non-string -1
+##File delimiter and file format
+```
+sqoop import --connect jdbc:mysql://quickstart.cloudera:3306/retail_db \
+--username retail_dba --password cloudera \
+-m 1 \
+--table departments \
+--target-dir /user/cloudera/sqoop_import/departments_enclosedBy \
+--enclosed-by \"
+```
+```
+sqoop import --connect jdbc:mysql://quickstart.cloudera:3306/retail_db \
+--username retail_dba --password cloudera \
+-m 1 \
+--table departments \
+--target-dir /user/cloudera/sqoop_import/departments_terminatedBy \
+--enclosed-by \" \
+--fields-terminated-by \| \
+--lines-terminated-by \:
+```
+```
+sqoop import --connect jdbc:mysql://quickstart.cloudera:3306/retail_db \
+--username retail_dba --password cloudera \
+-m 1 \
+--table departments_test \
+--hive-import \
+--hive-overwrite -\
+-hive-table sqoop_import.departments_test \
+--create-hive-table \
+--null-string nvl \
+--null-non-string -1
+```
