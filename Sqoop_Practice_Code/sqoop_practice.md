@@ -261,3 +261,17 @@ sqoop import --connect jdbc:mysql://quickstart.cloudera:3306/retail_db \
 --null-string nvl \
 --null-non-string -1
 ```
+*Handling delimiter in Export example*
+```
+sqoop export --connect jdbc:mysql://quickstart.cloudera:3306/retail_db \
+--username retail_dba --password cloudera \
+-m 2 \
+--table departments_test \
+--export-dir /user/hive/warehouse/sqoop_import.db/departments_test  \
+--input-fields-terminated-by '\001' \
+--input-lines-terminated-by '\n' \
+--batch \
+--outdir java_files \
+--input-null-string nvl \
+--input-null-non-string -1
+```
