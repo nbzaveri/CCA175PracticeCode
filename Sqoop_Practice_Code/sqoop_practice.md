@@ -293,7 +293,7 @@ sqoop import --connect jdbc:mysql://quickstart.cloudera:3306/retail_db \
 --as-avrodatafile \
 --target-dir /user/cloudera/departments_avro
 ```
-*To create Hive table using .avsc format
+*To create Hive table using .avsc format*
 ```
 hadoop fs -put departments.avsc /user/cloudera
 ```
