@@ -275,3 +275,33 @@ sqoop export --connect jdbc:mysql://quickstart.cloudera:3306/retail_db \
 --input-null-string nvl \
 --input-null-non-string -1
 ```
+
+##Sqoop File Formats
+```
+sqoop import --connect jdbc:mysql://quickstart.cloudera:3306/retail_db \
+--username retail_dba \
+--password cloudera  \
+--table departments	 \
+--as-sequencefile \
+--target-dir /user/cloudera/departments_sequence
+```
+```
+sqoop import --connect jdbc:mysql://quickstart.cloudera:3306/retail_db \
+--username retail_dba \
+--password cloudera  \
+--table departments	 \
+--as-avrodatafile \
+--target-dir /user/cloudera/departments_avro
+```
+*To create Hive table using .avsc format
+```
+hadoop fs -put departments.avsc /user/cloudera
+```
+```
+CREATE EXTERNAL TABLE departments_avro
+ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.avro.AvroSerDe'
+STORED AS INPUTFORMAT 'org.apache.hadoop.hive.ql.io.avro.AvroContainerInputFormat'
+OUTPUTFORMAT 'org.apache.hadoop.hive.ql.io.avro.AvroContainerOutputFormat'
+LOCATION 'hdfs:///user/cloudera/departments_avro'
+TBLPROPERTIES ('avro.schema.url'='hdfs://quickstart.cloudera/user/cloudera/departments.avsc');
+```
