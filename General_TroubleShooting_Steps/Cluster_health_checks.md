@@ -16,3 +16,6 @@ ps -fu hdfs
 ```
 ps -fu yarn
 ```
+```
+jdbc:mysql://quickstart.cloudera.3306 --> JDBC URL
+hdfs://quickstart.cloudera:8020 --> NameNode URL
