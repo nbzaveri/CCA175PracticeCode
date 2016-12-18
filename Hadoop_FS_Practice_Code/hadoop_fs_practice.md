@@ -45,3 +45,8 @@ hadoop fs -get /user/hive/warehouse/departments/part* .
 ```
 hadoop fs -put /home/cloudera/departments.avsc /user/cloudera
 ```
+*To view using full NameNode URL*
+```
+vi /etc/hadoop/conf/core-site.xml (get HadoopFs port from this config)
+hadoop fs -ls hdfs://quickstart.cloudera:8020/user/cloudera/tableData/departments
+```
