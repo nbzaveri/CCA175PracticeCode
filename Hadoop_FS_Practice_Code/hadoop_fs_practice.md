@@ -1,6 +1,14 @@
 #Hadoop FileSystem Practice Code Snippet
 
 ##Basic Hadoop commands
+* To list all hadoop fs commands*
+```
+hadoop fs
+```
+*To list help of any specific command*
+```
+hadoop fs -help ls
+```
 *To list directory*
 ```
 hadoop fs -ls
