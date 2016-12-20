@@ -1,3 +1,6 @@
+#To submit this program use
+#spark-submit --master yarn ReadWriteFile.py
+
 from pyspark import SparkConf, SparkContext
 
 conf = SparkConf().setAppName("ReadWriteFile")
