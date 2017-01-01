@@ -3,8 +3,8 @@
 
 from pyspark import SparkConf, SparkContext
 
-conf = SparkConf().setAppName("WordCount")
 sc = SparkContext(conf=conf)
+conf = SparkConf().setAppName("WordCount")
 
 data = sc.textFile("/user/cloudera/pyspark/wordcount.txt")
 dataFlatMap = data.flatMap(lambda x: x.split(" "))
