@@ -16,6 +16,11 @@ ps -fu hdfs
 ```
 ps -fu yarn
 ```
+*To search commands using VI history*
+```
+set -o vi
+```
 ```
 jdbc:mysql://quickstart.cloudera.3306 --> JDBC URL
 hdfs://quickstart.cloudera:8020 --> NameNode URL
+```
