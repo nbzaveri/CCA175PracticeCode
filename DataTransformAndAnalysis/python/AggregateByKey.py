@@ -1,6 +1,6 @@
 from pyspark import SparkConf, SparkContext
 
-conf = SparkConf().setAppName("Totak by key")
+conf = SparkConf().setAppName("Aggregate by key")
 sc = SparkContext(conf=conf)
 
 ordersRdd = sc.textFile("/user/cloudera/tableData/orders")
@@ -20,6 +20,16 @@ for i in ordersGroupCount.collect():
 	print i
 	
 #reduceByKey() example
+#Input & Output type must be same. Combiner & Reducer logic is same
 orderCount = ordersMap.reduceByKey(lambda x,y: x+y)
 for i in orderCount.collect():
 	print i
+
+#combineByKey() example
+#Input & Output type is same but combiner & reduce logic can differ
+#TODO
+
+	
+#aggregateByKey() example
+#Input & Output type can be different and combiner & reducer logic can also be different
+#TODO
