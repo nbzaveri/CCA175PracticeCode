@@ -24,7 +24,7 @@ orderItemsData=orderItems.map(lambda rec: (int(rec.split(",")[1]), float(rec.spl
 orderItemsAgg = orderItemsData.reduceByKey(lambda x,y: (x+y))
 
 ordersJoinOrderItems = orderItemsAgg.join(ordersData)
-findRecords = ordersJoinOrderItems.filter(lambda rec: rec[1] >= 1000)
+findRecords = ordersJoinOrderItems.filter(lambda rec: rec[1][0]] >= 1000)
 findRecords.count() #139 records
 
 for i in findRecords.collect():	print i
