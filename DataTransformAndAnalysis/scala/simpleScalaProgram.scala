@@ -9,6 +9,8 @@ object SimpleApp{
 		val sc = new SparkContext(conf)
 
 		val dptsRdd = sc.textFile("/user/cloudera/tableData/departments")
+		dpts.count()
+		dpts.collect().foreach(println)
 		dptsRdd.saveAsTextFile("/user/cloudera/scala")	
 	}
 }
