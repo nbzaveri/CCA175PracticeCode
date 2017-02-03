@@ -7,6 +7,10 @@ import org.apache.spark.sql.hive.HiveContext
 
 object AggregateByTotal{
 	def main(args: Array[String]){
+	
+		val conf=new SparkConf().setAppName("AggregateByTotal")
+		val sc = new SparkContext(conf)
+		
 		val orders = sc.textFile("/user/cloudera/tableData/orders")
 		orders.count()
 		

@@ -8,6 +8,9 @@ import org.apache.spark.sql.hive.HiveContext
 object AggregateByKey{
 	def main(args: Array[String]){
 	
+		val conf=new SparkConf().setAppName("AggregateByKey")
+		val sc = new SparkContext(conf)
+		
 		val orders = sc.textFile("/user/cloudera/tableData/orders")
 		//countByKey()
 		orders.map(rec => (rec.split(",")(3), rec)).countByKey().foreach(println)
