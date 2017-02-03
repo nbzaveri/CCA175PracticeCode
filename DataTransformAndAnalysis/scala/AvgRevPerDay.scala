@@ -30,9 +30,7 @@ object AvgRevPerDay{
 		
 		//define aggregateByKey to get total rev and order count per day
 		val revAndOrderCountMap = dateAsKeyMap.aggregateByKey((0.0, 0))((acc, value) => (acc._1+value, acc._2+1), (acc, value) => (acc._1 + value._1, acc._2+value._2))
+		
+		revAndOrderCountMap.map(rec => (rec._1, round(rec._2._1/rec._2._2)).sortByKey().collect().foreach(println)
 	}
 }
-
-(65722,(119.98,2014-05-23 00:00:00.0))
-
-((date, order_d), rev)
