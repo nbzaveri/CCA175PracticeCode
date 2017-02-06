@@ -4,7 +4,7 @@
 import org.apache.spark.SparkContext, org.apache.spark.SparkConf
 object GlobalSorting{
 	def main(args: Array[String]){
-		val conf=new SparkConf().setAppName("DataFilteringWithScala")
+		val conf=new SparkConf().setAppName("GlobalSorting")
 		val sc = new SparkContext(conf)
 		
 		val products = sc.textFile("/user/cloudera/tableData/products")
