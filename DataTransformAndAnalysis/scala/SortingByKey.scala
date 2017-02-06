@@ -26,6 +26,6 @@ object SortingByKey{
 			return rec._2.toList.sortBy(t => t.split(",")(4).toFloat)
 		}
 		
-		productGroupBy.flatMap(rec => getAll(rec)).take(100).foreach(println)
+		productGroupBy.flatMap(rec => getSorted(rec)).take(100).foreach(println)
 	}
 }
