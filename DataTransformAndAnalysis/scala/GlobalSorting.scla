@@ -13,5 +13,9 @@ object GlobalSorting{
 		
 		products.takeOrdered(10)(Ordering[Float].reverse.on(rec => rec.split(",")(4).toFloat)).foreach(println)
 		products.takeOrdered(10)(Ordering[Float].on(rec => rec.split(",")(4).toFloat)).foreach(println)
+		
+		//--------------------------------------//
+		products.map(rec => (rec.split(",")(1),rec)).groupByKey().take(10).foreach(println)
+		
 	}
 }
