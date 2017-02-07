@@ -27,5 +27,11 @@ object SortingByKey{
 		}
 		
 		productGroupBy.flatMap(rec => getSorted(rec)).take(100).foreach(println)
+		
+		def getTopN(rec : (String, Iterable[String]), topN : Int): Iterable[String] = {
+			return rec._2.toList.sortBy(-_.split(",")(4).toFloat).take(topN)
+		}
+		
+		productsGroup.flatMap(getTopN(_, 10)).foreach(println)
 	}
 }
