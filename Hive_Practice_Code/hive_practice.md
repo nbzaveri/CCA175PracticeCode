@@ -122,7 +122,9 @@ product_image string
 )
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '|'
 STORED AS TEXTFILE;
-
+```
+##retail_edw
+```
 -- Create edw tables (following dimension model)
 use retail_edw;
 CREATE TABLE products_dimension (
