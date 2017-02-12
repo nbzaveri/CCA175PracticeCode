@@ -150,4 +150,8 @@ PARTITIONED BY (product_category_department string)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '|'
 STORED AS TEXTFILE;
 ```
+##LOAD Example
+```
+LOAD DATA LOCAL INPATH '/home/cloudera/test.txt' OVERWRITE INTO TABLE test;
+```
 
