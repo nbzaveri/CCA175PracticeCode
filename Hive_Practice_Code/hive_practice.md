@@ -154,4 +154,38 @@ STORED AS TEXTFILE;
 ```
 LOAD DATA LOCAL INPATH '/home/cloudera/test.txt' OVERWRITE INTO TABLE test;
 ```
+##To provide write file to retail_dba
+```
+mysql -u root -p
+select user, file_priv from mysql.user;
+update mysql.user set file_priv = 'Y' where user = 'retail_dba';
+commit;
+exit;
+sudo service mysqld restart
+```
+##To load MySQL data into Hive (using hive load from local)
+```
+MySQL
+select * from categories into outfile '/tmp/categories.psv' fields terminated by '|' lines terminated by '\n';
+select * from customers into outfile '/tmp/customers.psv' fields terminated by '|' lines terminated by '\n';
+select * from departments into outfile '/tmp/departments.psv' fields terminated by '|' lines terminated by '\n';
+select * from products into outfile '/tmp/products.psv' fields terminated by '|' lines terminated by '\n';
+select * from orders into outfile '/tmp/orders.psv' fields terminated by '|' lines terminated by '\n';
+select * from order_items into outfile '/tmp/order_items.psv' fields terminated by '|' lines terminated by '\n';
 
+Hive
+load data local inpath '/tmp/categories.psv' overwrite into table categories;
+load data local inpath '/tmp/customers.psv' overwrite into table customers;
+load data local inpath '/tmp/departments.psv' overwrite into table departments;
+load data local inpath '/tmp/products.psv' overwrite into table products;
+load data local inpath '/tmp/orders.psv' overwrite into table products;
+load data local inpath '/tmp/order_items.psv' overwrite into table products;
+```
+##To load MySQL data into Hive (using hive load from HDFS)
+```
+hadoop fs -mkdir /user/cloudera/categories
+hadoop fs -put /tmp/categories.psv /user/cloudera/categories
+
+Hive
+load data inpath '/user/cloudera/categories/*.psv' overwrite into table categories;
+```
