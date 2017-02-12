@@ -186,3 +186,49 @@ hadoop fs -put /tmp/categories.psv /user/cloudera/categories
 Hive
 load data inpath '/user/cloudera/categories/*.psv' overwrite into table categories;
 ```
+##Multi step transformation to load data into Hive table
+```
+create database retail_stage;
+use retail_stage;
+
+CREATE TABLE orders_stage (
+order_id int,
+order_date string,
+order_customer_id int,
+order_status string
+)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY '|'
+STORED AS TEXTFILE;
+
+select * from orders into outfile '/tmp/orders.psv' fields terminated by '|' lines terminated by '\n'; (mysql)
+
+load data local inpath '/tmp/orders.psv' overwrite into table orders_stage;
+
+set hive.exec.dynamic.partition=TRUE;
+set hive.exec.dynamic.partition.mode=nonstrict;
+
+insert overwrite table retail_ods.orders partition (order_month)
+select order_id, order_date, order_customer_id, order_status, substr(order_date, 1, 7) order_month from retail_stage.orders_stage;
+
+use retail_stage;
+CREATE TABLE order_items_stage (
+order_item_id int,
+order_item_order_id int,
+order_item_product_id int,
+order_item_quantity smallint,
+order_item_subtotal float,
+order_item_product_price float
+)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY '|'
+STORED AS TEXTFILE;
+
+select * from order_items into outfile '/tmp/order_items.psv' fields terminated by '|' lines terminated by '\n'; (mysql)
+load data local inpath '/tmp/order_items.psv' overwrite into table order_items_stage;
+
+insert overwrite table retail_ods.order_items partition (order_month)
+select oi.order_item_id, oi.order_item_order_id, o.order_date,
+oi.order_item_product_id, oi.order_item_quantity, oi.order_item_subtotal,
+oi.order_item_product_price, substr(o.order_date, 1, 7) order_month 
+from retail_stage.order_items_stage oi join retail_stage.orders_stage o
+on oi.order_item_order_id = o.order_id;
+```
