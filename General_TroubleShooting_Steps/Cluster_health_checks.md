@@ -24,3 +24,9 @@ set -o vi
 jdbc:mysql://quickstart.cloudera.3306 --> JDBC URL
 hdfs://quickstart.cloudera:8020 --> NameNode URL
 ```
+#Check service running
+```
+cat /etc/passwd (it will list all available users)
+sudo -u yarn jps (to list hdfs services)
+sudo -u hdfs jps (to list yarn services)
+```
