@@ -30,3 +30,15 @@ cat /etc/passwd (it will list all available users)
 sudo -u yarn jps (to list hdfs services)
 sudo -u hdfs jps (to list yarn services)
 ```
+#JPS
+```
+sudo -u hdfs jps
+sudo -u yarn jps
+```
+#EOF usage
+```
+hive <<EOF
+show databases;
+show tables;
+EOF
+```

@@ -232,3 +232,8 @@ oi.order_item_product_price, substr(o.order_date, 1, 7) order_month
 from retail_stage.order_items_stage oi join retail_stage.orders_stage o
 on oi.order_item_order_id = o.order_id;
 ```
+#Inline query example
+```
+hive -e "show databases";
+hive -e "show tables";
+```
